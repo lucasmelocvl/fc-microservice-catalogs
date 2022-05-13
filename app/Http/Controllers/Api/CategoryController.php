@@ -31,7 +31,8 @@ class CategoryController extends Controller
     }
 
     /*
-     * Route Model Binding (ligação do model com a rota)
+     * 'Category $category' usa Route Model Binding Implicit (ligação do model com a rota)
+     * Route Model Binding Explict seria especificando pelo RouteServiceProvider mapApiRoutes;
      */
     public function show(Category $category)
     {
