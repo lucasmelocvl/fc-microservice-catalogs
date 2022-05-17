@@ -18,7 +18,10 @@ class Category extends Model
         'is_active'
     ];
     protected $dates = ['deleted_at'];
+    protected $keyType = 'string';
     protected $casts = [
         'id' => 'string'
     ];
+
+    public $incrementing = false;
 }

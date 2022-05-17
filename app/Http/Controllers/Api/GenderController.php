@@ -21,7 +21,7 @@ class GenderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->rules);
-        return Gender::create($request->all()); // O id nesse retorno não está vindo como uuid, ainda entende como int (mesmo com o cast no model)
+        return Gender::create($request->all());
     }
 
     public function show(Gender $gender)
