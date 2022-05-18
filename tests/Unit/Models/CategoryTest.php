@@ -61,11 +61,16 @@ class CategoryTest extends TestCase
 
     public function testDatesAttribute()
     {
-        $dates = ['created_at', 'updated_at', 'deleted_at'];
         $categoryDates = $this->category->getDates();
-        foreach($dates as $date) {
-            $this->assertContains($date, $categoryDates);
-        }
+        $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+        # Versão antiga antes do assertEqualsCanonicalizing
+        //foreach($dates as $date) {
+        //    $this->assertContains($date, $categoryDates);
+        //}
+
+        $this->assertEqualsCanonicalizing($dates, $categoryDates);
+
         $this->assertCount(count($dates), $categoryDates);
     }
 
@@ -78,7 +83,8 @@ class CategoryTest extends TestCase
     public function testCasts()
     {
         $casts = [
-            'id' => 'string'
+            'id' => 'string',
+            'is_active' => 'bool'
         ];
         $this->assertEquals($casts, $this->category->getCasts());
     }
