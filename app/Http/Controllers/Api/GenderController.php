@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gender;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class GenderController extends Controller
@@ -15,28 +15,28 @@ class GenderController extends Controller
 
     public function index()
     {
-        return Gender::all();
+        return Genre::all();
     }
 
     public function store(Request $request)
     {
         $this->validate($request, $this->rules);
-        return Gender::create($request->all());
+        return Genre::create($request->all());
     }
 
-    public function show(Gender $gender)
+    public function show(Genre $gender)
     {
         return $gender;
     }
 
-    public function update(Request $request, Gender $gender)
+    public function update(Request $request, Genre $gender)
     {
         $this->validate($request, $this->rules);
         $gender->update($request->all());
         return $gender;
     }
 
-    public function destroy(Gender $gender)
+    public function destroy(Genre $gender)
     {
         $gender->delete();
         return response()->noContent();
