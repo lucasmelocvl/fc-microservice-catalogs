@@ -3,6 +3,7 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Category;
+use App\Models\Genre;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -85,5 +86,38 @@ class CategoryTest extends TestCase
         foreach($data as $key => $value) {
             $this->assertEquals($value, $category->{$key});
         }
+    }
+
+    public function testDelete()
+    {
+        $category = factory(Category::class)->create();
+
+        $id = $category->id;
+        $category->delete();
+        $nullCategory = Category::find($id);
+
+        $this->assertNull($nullCategory);
+    }
+
+    public function testIfUuidIsValid()
+    {
+        $genre = factory(Category::class)->create();
+
+        // UUID tem 32 dígitos + 4 hífens
+        $this->assertEquals("36", strlen($genre->id));
+
+        $uuidParts = explode('-', $genre->id);
+
+        // UUID é separado em 5 partes
+        $this->assertCount(5, $uuidParts);
+
+        // As primeiras três partes são interpretadas como números hexadecimais completos
+        $this->assertTrue(ctype_xdigit($uuidParts[0]));
+        $this->assertTrue(ctype_xdigit($uuidParts[1]));
+        $this->assertTrue(ctype_xdigit($uuidParts[2]));
+
+        // As duas partes finais como uma sequência de bytes pura
+        $this->assertTrue(ctype_alnum($uuidParts[3]));
+        $this->assertTrue(ctype_alnum($uuidParts[4]));
     }
 }

@@ -61,8 +61,12 @@ class CategoryTest extends TestCase
 
     public function testDatesAttribute()
     {
+        $dates = [
+            'created_at',
+            'updated_at',
+            'deleted_at'
+        ];
         $categoryDates = $this->category->getDates();
-        $dates = ['created_at', 'updated_at', 'deleted_at'];
 
         # Versão antiga antes do assertEqualsCanonicalizing
         //foreach($dates as $date) {
@@ -70,7 +74,6 @@ class CategoryTest extends TestCase
         //}
 
         $this->assertEqualsCanonicalizing($dates, $categoryDates);
-
         $this->assertCount(count($dates), $categoryDates);
     }
 
